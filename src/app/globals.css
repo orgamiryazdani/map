@@ -1,27 +1,108 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* @import "../tailwind/components.css"; */
 
-@media (prefers-color-scheme: dark) {
+@import "tailwindcss/utilities";
+
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --color-primary: theme("colors.primary");
+    --color-secondary: theme("colors.secondary");
+    --color-info: theme("colors.info");
+    --color-success: theme("colors.success");
+    --color-warning: theme("colors.warning");
+    --color-error: theme("colors.error");
+  }
+
+  html {
+    font-family: var(--font-vazir);
+  }
+
+  :lang(en) {
+    font-family: var(--font-figtree);
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.background {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(17.5px);
+  -webkit-backdrop-filter: blur(17.5px);
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@keyframes circleBlue {
+  0% {
+    left: 0%;
   }
+  10% {
+    top: 10%;
+    left: 0%;
+  }
+  20% {
+    top: 20%;
+    left: 0%;
+  }
+  30% {
+    top: 20%;
+    left: 10%;
+  } /**/
+  40% {
+    top: 10%;
+    left: 20%;
+  }
+  50% {
+    top: 0%;
+    left: 20%;
+  }
+  60% {
+    top: 60%;
+    left: 10%;
+  }
+  70% {
+    top: 60%;
+    left: 0%;
+  }
+  80% {
+    left: 0%;
+    top: 40%;
+  }
+  90% {
+    left: 0%;
+    top: 20%;
+  }
+  100% {
+    left: 0%;
+    top: 0%;
+  }
+}
+
+@keyframes circleBlueBottom {
+  0% {
+    left: 20%;
+  }
+  20% {
+    left: 50%;
+  }
+  40% {
+    left: 80%;
+  }
+  60% {
+    left: 90%;
+  }
+  80% {
+    left: 50%;
+  }
+  100% {
+    left: 20%;
+  }
+}
+
+.circle-blue-animation {
+  animation: circleBlue 7s ease-in-out infinite;
+  -webkit-animation: circleBlue 7s ease-in-out infinite;
+}
+
+.circle-blue-animation-test {
+  animation: circleBlueBottom 10s ease-in-out infinite;
+  -webkit-animation: circleBlueBottom 10s ease-in-out infinite;
 }
