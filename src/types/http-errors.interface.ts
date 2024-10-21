@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type */
 interface Problem {
     title: string;
     status: number;
@@ -6,12 +5,12 @@ interface Problem {
     errors?: Record<string, string[]>
 }
 
-interface BadRequestError extends Problem {}
-interface UnauthorizedError extends Problem { }
-interface ValidationError extends Problem { }
-interface NotFoundError extends Problem { }
-interface UnhandledException extends Problem { }
-interface NetworkError extends Problem { }
+type BadRequestError = Problem
+type UnauthorizedError = Problem
+type ValidationError = Problem
+type NotFoundError = Problem
+type UnhandledException = Problem
+type NetworkError = Problem
 
 type ApiError =
     | BadRequestError
