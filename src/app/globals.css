@@ -1,7 +1,7 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 
-/* @import "../tailwind/components.css"; */
+@import "../tailwind/components.css";
 
 @import "tailwindcss/utilities";
 
@@ -9,10 +9,14 @@
   :root {
     --color-primary: theme("colors.primary");
     --color-secondary: theme("colors.secondary");
+    --color-accent: theme("colors.accent");
+    --color-neutral: theme("colors.neutral");
     --color-info: theme("colors.info");
     --color-success: theme("colors.success");
     --color-warning: theme("colors.warning");
     --color-error: theme("colors.error");
+    --color-gradient-first: theme("colors.gradient-first");
+    --color-gradient-second: theme("colors.gradient-second");
   }
 
   html {
