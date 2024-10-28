@@ -1,0 +1,44 @@
+<style>
+  body {
+    font-family: Arial, Helvetica, sans-serif !important;
+  }
+
+  body,
+  .sbdocs,
+  .sbdocs > div {
+    background-color: rgb(29, 35, 42) !important;
+    color: #ccc !important;
+  }
+
+  body
+    *:not(button):not(.alert):not(svg):not(#storybook-root > *):not(
+      .sb-story > div > *
+    ) {
+    color: #ccc !important;
+  }
+
+  .docblock-argstable tr * {
+    background-color: transparent !important;
+  }
+
+  .docblock-argstable {
+    background-color: rgb(42, 50, 60);
+  }
+
+  .docblock-argstable td:last-of-type,
+  .docblock-argstable th:last-of-type {
+    display: none !important;
+  }
+
+  .sb-story > div,
+  #storybook-root {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+  }
+
+  /* .docblock-code-toggle {
+          background-color: rgb(25, 30, 36) !important;
+          color: #eee;
+      } */
+</style>
