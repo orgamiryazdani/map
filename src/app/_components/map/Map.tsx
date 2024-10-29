@@ -5,12 +5,12 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
 export const Map: React.FC = () => {
   return (
-    <section className='md:w-[94vw] w-[90vw] h-[90vh]'>
+    <section className='w-svw h-svh'>
       <MapContainer
-        className='w-full h-full rounded-3xl'
+        className='w-full h-full'
         center={[51.505, -0.09]}
         zoom={13}
-        scrollWheelZoom={false}>
+        scrollWheelZoom={true}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
