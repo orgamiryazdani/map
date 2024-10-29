@@ -8,12 +8,16 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "prepare": "husky install"
   },
   "dependencies": {
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
     "axios": "^1.7.7",
     "classnames": "^2.5.1",
     "colord": "^2.9.3",
+    "husky": "^9.1.6",
     "next": "14.2.15",
     "react": "^18",
     "react-dom": "^18",
@@ -40,5 +44,25 @@
     "storybook": "^8.3.6",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
+    "rules": {
+      "subject-case": [
+        2,
+        "never",
+        [
+          "start-case",
+          "pascal-case"
+        ]
+      ]
+    }
   }
 }
