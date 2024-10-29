@@ -1,6 +1,6 @@
-import classNames from "classnames";
-import { ButtonProps, ButtonShape } from "./button.types";
 import { Size } from "@/types/size.type";
+import { ButtonProps, ButtonShape } from "./button.types";
+import classNames from "classnames";
 
 const sizeClasses: Record<Size, string> = {
   tiny: "btn-xs",
@@ -49,8 +49,7 @@ export const Button: React.FC<ButtonProps> = ({
       type={type}
       disabled={isDisabled}
       {...rest}
-      className={classes}
-      >
+      className={classes}>
       {isLoading ? loadingText : children}
     </button>
   );
