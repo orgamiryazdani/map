@@ -50,7 +50,7 @@ export default function RootLayout({
     className={`dark ${figtree.variable} ${vazir.variable}`}
     dir='rtl'
     >
-      <body>{children}</body>
+      <body className="dark:bg-base-100 dark:text-base-content">{children}</body>
     </html>
   );
 }
