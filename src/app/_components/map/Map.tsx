@@ -5,9 +5,9 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
 export const Map: React.FC = () => {
   return (
-    <section className='w-svw h-svh'>
+    <section className='w-full h-full'>
       <MapContainer
-        className='w-full h-full'
+        className='w-full h-full rounded-3xl'
         center={[51.505, -0.09]}
         zoom={13}
         scrollWheelZoom={true}>
