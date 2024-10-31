@@ -27,3 +27,37 @@
     font-family: var(--font-figtree);
   }
 }
+
+.indicator::before {
+  @apply content-[""] absolute left-[-22px] w-[17px] h-6 dark:shadow-[1px_-10px_0_#1d232a] rounded-tr-[20px] top-[51.5%];
+  background: transparent;
+}
+
+.indicator::after {
+  @apply content-[""] absolute right-[-22px] w-[17px] h-6 dark:shadow-[-1px_-10px_0_#1d232a] rounded-tl-[20px] top-[51.5%];
+  background: transparent;
+}
+
+.navigation ul li.active a .icon {
+  @apply text-base-75 dark:text-secondary-content;
+}
+
+.navigation ul li:nth-child(1).active ~ .indicator {
+  top: calc(70px * 1);
+}
+
+.navigation ul li:nth-child(2).active ~ .indicator {
+  top: calc(70px * 2);
+}
+
+.navigation ul li:nth-child(3).active ~ .indicator {
+  top: calc(70px * 3);
+}
+
+.navigation ul li:nth-child(4).active ~ .indicator {
+  top: calc(70px * 4);
+}
+
+.navigation ul li:nth-child(5).active ~ .indicator {
+  top: calc(70px * 5);
+}
