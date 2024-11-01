@@ -38,8 +38,12 @@
   background: transparent;
 }
 
-.navigation ul li.active a .icon {
-  @apply text-base-75 dark:text-secondary-content;
+.navigation ul li.active a svg {
+  @apply stroke-base-300 dark:stroke-white duration-300;
+}
+
+.navigation ul li a svg {
+  @apply stroke-white dark:stroke-base-300 duration-300;
 }
 
 .navigation ul li:nth-child(1).active ~ .indicator {
