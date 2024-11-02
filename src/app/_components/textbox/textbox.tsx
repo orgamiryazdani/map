@@ -1,6 +1,7 @@
 import { Size } from "@/types/size.type";
 import { TextboxProps } from "./textbox.types";
 import classNames from "classnames";
+import { forwardRef } from "react";
 
 const sizeClasses: Record<Size, string> = {
   tiny: "textbox-xs",
@@ -9,26 +10,27 @@ const sizeClasses: Record<Size, string> = {
   large: "textbox-lg",
 };
 
-export const Textbox: React.FC<TextboxProps> = ({
-  variant = "ghost",
-  type = "text",
-  className,
-  size = "normal",
-  ...rest
-}) => {
-  const classes = classNames(
-    "textbox",
-    "w-full",
-    className,
-    { [`textbox-${variant}`]: variant },
-    { [`${sizeClasses[size]}`]: size },
-  );
+export const Textbox = forwardRef<HTMLInputElement, TextboxProps>(
+  (
+    { variant = "ghost", type = "text", className, size = "normal", ...rest },
+    ref,
+  ) => {
+    const classes = classNames(
+      "textbox",
+      "w-full",
+      className,
+      { [`textbox-${variant}`]: variant },
+      { [`${sizeClasses[size]}`]: size },
+    );
+    return (
+      <input
+        ref={ref}
+        type={type}
+        className={classes}
+        {...rest}
+      />
+    );
+  },
+);
 
-  return (
-    <input
-      type={type}
-      className={classes}
-      {...rest}
-    />
-  );
-};
+Textbox.displayName = "Textbox";
