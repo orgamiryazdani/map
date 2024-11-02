@@ -7,7 +7,7 @@ export const Map: React.FC = () => {
   return (
     <section className='w-full h-full'>
       <MapContainer
-        className='w-full h-full rounded-xl'
+        className='w-full h-full rounded-xl z-40'
         center={[51.505, -0.09]}
         zoom={13}
         scrollWheelZoom={true}>
@@ -24,5 +24,3 @@ export const Map: React.FC = () => {
     </section>
   );
 };
-
-
