@@ -3,6 +3,7 @@
 export { default as IconAdd } from './src/add';
 export { default as IconArrowRight } from './src/arrow-right';
 export { default as IconBookmark } from './src/bookmark';
+export { default as IconClose } from './src/close';
 export { default as IconHome } from './src/home';
 export { default as IconLayer } from './src/layer';
 export { default as IconLocation } from './src/location';
