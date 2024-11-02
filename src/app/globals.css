@@ -65,3 +65,7 @@
 .navigation ul li:nth-child(5).active ~ .indicator {
   top: calc(70px * 5);
 }
+
+.box :nth-child(2){
+  width: 93%;
+}
