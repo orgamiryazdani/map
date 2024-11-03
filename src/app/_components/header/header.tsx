@@ -21,28 +21,24 @@ const Header: React.FC = () => {
   const pathname = usePathname();
   const inputRef = useRef<HTMLInputElement>(null);
   const [locationResults, setLocationResults] = useState<Feature[] | []>([]);
-  const previousInputValueRef = useRef<string>("");
 
   const setQueryLocation = async (location: number[]) => {
     const params = new URLSearchParams(searchParams.toString());
-    params.set("lat", String(location[0]));
-    params.set("lng", String(location[1]));
-
+    params.set("lng", String(location[0]));
+    params.set("lat", String(location[1]));
     await router.push(`${pathname}?${params.toString()}`);
     setLocationResults([]);
   };
 
   const getLocation = async () => {
     const inputValue = inputRef.current?.value || "";
-    if (inputValue.trim() && inputValue !== previousInputValueRef.current) {
+    if (inputValue.trim()) {
       const locationSearchParams: GeocodingResponse = await readData(
         `/geocode/search?api_key=${API_KEY}&text=${inputValue}`,
       );
-
       if (locationSearchParams.features?.length > 0) {
         setLocationResults(locationSearchParams.features);
       }
-      previousInputValueRef.current = inputValue;
     }
   };
 
