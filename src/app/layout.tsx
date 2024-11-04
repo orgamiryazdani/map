@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { Figtree } from "next/font/google";
 import Menu from "./_components/menu/menu";
 import Header from "./_components/header/header";
+import { Notifications } from "./_components/notification";
 
 const figtree = Figtree({
   display: "swap",
@@ -52,6 +53,7 @@ export default function RootLayout({
       className={`dark ${figtree.variable} ${vazir.variable}`}
       dir='rtl'>
       <body className='dark:bg-base-100 dark:text-base-content grid grid-rows-7 grid-cols-12 '>
+        <Notifications />
         <Header />
         <Menu />
         {children}
