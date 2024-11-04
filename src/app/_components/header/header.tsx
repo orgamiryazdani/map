@@ -4,7 +4,6 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "../button";
 import {
   IconClose,
-  IconLayer,
   IconLocation,
   IconPin,
   IconSearch,
@@ -14,6 +13,7 @@ import { useState, useRef } from "react";
 import { readData } from "@/core/http-service";
 import { API_KEY } from "@/config/global";
 import { Feature, GeocodingResponse } from "@/types/location.interface";
+import { Layer } from "../layers";
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -80,12 +80,7 @@ const Header: React.FC = () => {
       </div>
       {/* feature btn => live location , layer map , pin location */}
       <div className='flex items-center gap-x-4'>
-        <Button
-          className='w-10 h-10'
-          shape='square'
-          variant='neutral'>
-          <IconLayer />
-        </Button>
+        <Layer/>
         <Button
           className='w-10 h-10'
           shape='square'
