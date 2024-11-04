@@ -1,3 +1,5 @@
 @import "./components/button.css";
 @import "./components/loading.css";
 @import "./components/textbox.css";
+@import "./components/notification.css";
+@import "./components/progress.css";
