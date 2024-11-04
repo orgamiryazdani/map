@@ -5,16 +5,12 @@ import { useEffect, useState, useRef } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { MapContainer, TileLayer, useMap, useMapEvents } from "react-leaflet";
 import L from "leaflet";
+import { useLayerStore } from "@/stores/layers.store";
 
 const svgIcon = L.divIcon({
   html: `
-  <?xml version="1.0" encoding="utf-8"?>
-<svg width="30px" height="30px" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg">
-    <path d="M512 85.333333c-164.949333 0-298.666667 133.738667-298.666667 298.666667 0 164.949333 298.666667 554.666667 298.666667 554.666667s298.666667-389.717333 298.666667-554.666667c0-164.928-133.717333-298.666667-298.666667-298.666667z m0 448a149.333333 149.333333 0 1 1 0-298.666666 149.333333 149.333333 0 0 1 0 298.666666z" fill="#FF3D00" />
-  </svg>`,
+  <?xml version="1.0" encoding="utf-8"?><svg width="30px" height="30px" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M512 85.333333c-164.949333 0-298.666667 133.738667-298.666667 298.666667 0 164.949333 298.666667 554.666667 298.666667 554.666667s298.666667-389.717333 298.666667-554.666667c0-164.928-133.717333-298.666667-298.666667-298.666667z m0 448a149.333333 149.333333 0 1 1 0-298.666666 149.333333 149.333333 0 0 1 0 298.666666z" fill="#FF3D00" /></svg>`,
   className: "svg-icon",
-  iconSize: [24, 40],
-  iconAnchor: [12, 40],
 });
 
 const MapEvents = ({
@@ -29,7 +25,7 @@ const MapEvents = ({
   const pathname = usePathname();
 
   const map = useMapEvents({
-    moveend: async() => {
+    moveend: async () => {
       if (skipNextUrlUpdate.current) {
         skipNextUrlUpdate.current = false;
         return;
@@ -59,13 +55,18 @@ const MapViewUpdater: React.FC<{ center: [number, number] }> = ({ center }) => {
 
 export const Map: React.FC = () => {
   const location = useSearchParams();
-  const lat = location.get("lat");
-  const lng = location.get("lng");
+  const lat = location.get("lat") || 29.61563539020847;
+  const lng = location.get("lng") || 52.5175996466605;
   const skipNextUrlUpdate = useRef(false);
 
-  const [latLng, setLatLng] = useState<[number, number]>(
-    lat && lng ? [Number(lat), Number(lng)] : [51.505, -0.09],
+  const activeLayer = useLayerStore((state) =>
+    state.layers.find((layer) => layer.isActive),
   );
+
+  const [latLng, setLatLng] = useState<[number, number]>([
+    Number(lat),
+    Number(lng),
+  ]);
 
   useEffect(() => {
     const newLatLng: [number, number] = [Number(lat), Number(lng)];
@@ -80,8 +81,8 @@ export const Map: React.FC = () => {
         zoom={13}
         scrollWheelZoom={true}>
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+          attribution={activeLayer?.attribution}
+          url={activeLayer?.url || ""}
         />
         <MapEvents
           setLatLng={setLatLng}
