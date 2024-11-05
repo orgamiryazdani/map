@@ -1,8 +1,9 @@
 "use client";
 
 import { Button } from "../button";
-import { IconLocation, IconPin } from "../icons/icons";
+import { IconPin } from "../icons/icons";
 import { Layer } from "../layers";
+import { LiveLocation } from "../live-location";
 import { Search } from "../search";
 
 const Header: React.FC = () => {
@@ -12,12 +13,7 @@ const Header: React.FC = () => {
       {/* feature btn => live location , layer map , pin location */}
       <div className='flex items-center gap-x-4'>
         <Layer />
-        <Button
-          className='w-10 h-10'
-          shape='square'
-          variant='neutral'>
-          <IconLocation />
-        </Button>
+        <LiveLocation />
         <Button
           className='w-10 h-10'
           shape='square'
