@@ -6,7 +6,7 @@ import { IconLayer } from "../icons/icons";
 import { useState } from "react";
 import { useLayerStore } from "@/stores/layers.store";
 
-export const Layer = () => {
+export const Layer: React.FC = () => {
   const [showMapBox, setShowMapBox] = useState(false);
   const { layers, setActiveMap } = useLayerStore((state) => state);
 
