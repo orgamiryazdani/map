@@ -13,6 +13,7 @@ import {
 import L from "leaflet";
 import { useLayerStore } from "@/stores/layers.store";
 import { useLiveLocationStore } from "@/stores/livelocation.store";
+import { IconPin } from "../icons/icons";
 
 const svgIcon = L.divIcon({
   html: `
@@ -27,19 +28,148 @@ const liveIcon = L.divIcon({
   className: "live-icon",
 });
 
-const MapEvents = ({
-  setLatLng,
-  skipNextUrlUpdate,
-}: {
+const pinIcon = L.divIcon({
+  html: `
+  <?xml version="1.0" encoding="iso-8859-1"?><svg width='20px' height='20px' version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512.064 512.064" xml:space="preserve"><circle style="fill:#38C6B4;" cx="256.032" cy="157.424" r="141.424"/><g><path style="fill:#222077;" d="M256.032,32c69.152,0,125.424,56.256,125.424,125.424s-56.272,125.408-125.424,125.408s-125.424-56.256-125.424-125.424S186.88,32,256.032,32 M256.032,0C169.088,0,98.608,70.48,98.608,157.424s70.48,157.424,157.424,157.424s157.424-70.48,157.424-157.424S342.976,0,256.032,0L256.032,0z"/><rect x="240.032" y="302.464" style="fill:#222077;" width="32" height="209.6"/></g></svg>
+`,
+  className: "pin-icon",
+});
+
+export const Map: React.FC = () => {
+  const location = useSearchParams();
+  const lat = location.get("lat") || 29.61563539020847;
+  const lng = location.get("lng") || 52.5175996466605;
+  const pinlat = location.get("pinlat");
+  const pinlng = location.get("pinlng");
+  const skipNextUrlUpdate = useRef(false);
+
+  const activeLayer = useLayerStore((state) =>
+    state.layers.find((layer) => layer.isActive),
+  );
+
+  const liveLocation = useLiveLocationStore((state) => state.liveLocation);
+
+  const [latLng, setLatLng] = useState<[number, number]>([
+    Number(lat),
+    Number(lng),
+  ]);
+
+  useEffect(() => {
+    const newLatLng: [number, number] = [Number(lat), Number(lng)];
+    setLatLng(newLatLng);
+  }, [lat, lng]);
+
+  useEffect(() => {
+    if (liveLocation.lat !== null && liveLocation.lng !== null) {
+      setLatLng([liveLocation.lat, liveLocation.lng]);
+    }
+  }, [liveLocation]);
+
+  const [isOutOfView, setIsOutOfView] = useState(false);
+  const [buttonPosition, setButtonPosition] = useState("");
+
+  return (
+    <section className='w-full h-full relative'>
+      <MapContainer
+        className='w-full h-full rounded-xl z-40'
+        center={latLng}
+        zoom={13}
+        scrollWheelZoom={true}>
+        <TileLayer
+          attribution={activeLayer?.attribution}
+          url={activeLayer?.url || ""}
+        />
+        <MapEvents
+          setLatLng={setLatLng}
+          skipNextUrlUpdate={skipNextUrlUpdate}
+          location={[Number(pinlat), Number(pinlng)]}
+          setIsOutOfView={setIsOutOfView}
+          setButtonPosition={setButtonPosition}
+        />
+        <MapViewUpdater center={latLng} />
+
+        {liveLocation.lat && liveLocation.lng && (
+          <Marker
+            position={[liveLocation.lat, liveLocation.lng]}
+            icon={liveIcon}
+          />
+        )}
+        {pinlat && pinlng && (
+          <Marker
+            position={[Number(pinlat), Number(pinlng)]}
+            icon={pinIcon}
+          />
+        )}
+        {isOutOfView && (
+          <button
+            onClick={() => setLatLng([Number(pinlat), Number(pinlng)])}
+            className={`flex items-center justify-center w-8 h-8 rounded-full bg-base-25 z-[500] absolute left-1/2 
+            ${buttonPosition == "top" && "top-4"}
+            ${buttonPosition == "bottom" && "bottom-4 rotate-180"}
+            ${buttonPosition == "left" && "left-4 top-1/2 -rotate-90"}
+            ${buttonPosition == "right" && "right-4 top-1/2 rotate-90"}
+            `}>
+            <div className='w-6 h-6 z-10 flex items-center justify-center rounded-full bg-error'>
+              <IconPin
+                className='z-20 w-5 h-5 rotate-180 absolute'
+                stroke='#000'
+              />
+            </div>
+            <div className='w-2 h-5 rounded-t-3xl bg-base-25 absolute bottom-6'></div>
+          </button>
+        )}
+      </MapContainer>
+      <div
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          zIndex: 50,
+          pointerEvents: "none",
+        }}
+        dangerouslySetInnerHTML={{ __html: svgIcon.options.html || "" }}
+      />
+    </section>
+  );
+};
+
+type MapEventProps = {
   setLatLng: (center: [number, number]) => void;
   skipNextUrlUpdate: React.MutableRefObject<boolean>;
-}) => {
+  location: [number, number];
+  setIsOutOfView: (boolean: boolean) => void;
+  setButtonPosition: (string: string) => void;
+};
+
+const MapEvents: React.FC<MapEventProps> = ({
+  setLatLng,
+  skipNextUrlUpdate,
+  location,
+  setIsOutOfView,
+  setButtonPosition,
+}: MapEventProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
   const map = useMapEvents({
     moveend: async () => {
+      const bounds = map.getBounds();
+      if (!bounds.contains(location)) {
+        setIsOutOfView(true);
+        if (location[0] > bounds.getNorth()) {
+          setButtonPosition("top");
+        } else if (location[0] < bounds.getSouth()) {
+          setButtonPosition("bottom");
+        } else if (location[1] < bounds.getWest()) {
+          setButtonPosition("left");
+        } else if (location[1] > bounds.getEast()) {
+          setButtonPosition("right");
+        }
+      } else {
+        setIsOutOfView(false);
+      }
       if (skipNextUrlUpdate.current) {
         skipNextUrlUpdate.current = false;
         return;
@@ -65,71 +195,4 @@ const MapViewUpdater: React.FC<{ center: [number, number] }> = ({ center }) => {
   }, [center, map]);
 
   return null;
-};
-
-export const Map: React.FC = () => {
-  const location = useSearchParams();
-  const lat = location.get("lat") || 29.61563539020847;
-  const lng = location.get("lng") || 52.5175996466605;
-  const skipNextUrlUpdate = useRef(false);
-
-  const activeLayer = useLayerStore((state) =>
-    state.layers.find((layer) => layer.isActive),
-  );
-
-  const liveLocation = useLiveLocationStore((state) => state.liveLocation);
-
-  const [latLng, setLatLng] = useState<[number, number]>([
-    Number(lat),
-    Number(lng),
-  ]);
-
-  useEffect(() => {
-    const newLatLng: [number, number] = [Number(lat), Number(lng)];
-    setLatLng(newLatLng);
-  }, [lat, lng]);
-
-  useEffect(() => {
-    if (liveLocation.lat !== null && liveLocation.lng !== null) {
-      setLatLng([liveLocation.lat, liveLocation.lng]);
-    }
-  }, [liveLocation]);
-
-  return (
-    <section className='w-full h-full'>
-      <MapContainer
-        className='w-full h-full rounded-xl z-40'
-        center={latLng}
-        zoom={13}
-        scrollWheelZoom={true}>
-        <TileLayer
-          attribution={activeLayer?.attribution}
-          url={activeLayer?.url || ""}
-        />
-        <MapEvents
-          setLatLng={setLatLng}
-          skipNextUrlUpdate={skipNextUrlUpdate}
-        />
-        <MapViewUpdater center={latLng} />
-
-        {liveLocation.lat && liveLocation.lng && (
-          <Marker
-            position={[liveLocation.lat, liveLocation.lng]}
-            icon={liveIcon}
-          />
-        )}
-      </MapContainer>
-      <div
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          zIndex: 1000,
-          pointerEvents: "none",
-        }}
-        dangerouslySetInnerHTML={{ __html: svgIcon.options.html || "" }}
-      />
-    </section>
-  );
 };
