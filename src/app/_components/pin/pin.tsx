@@ -6,8 +6,8 @@ export const Pin = () => {
   const router = useRouter();
   const pathname = usePathname();
   const location = useSearchParams();
-  const lat = location.get("lat");
-  const lng = location.get("lng");
+  const lat = location.get("lat") || null;
+  const lng = location.get("lng") || null;
 
   const pinHandler = () => {
     const params = new URLSearchParams(location.toString());
