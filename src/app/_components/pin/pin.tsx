@@ -1,19 +1,19 @@
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Button } from "../button";
 import { IconPin } from "../icons/icons";
+import useUpdateLocation from "@/hooks/useUpdateLocation";
 
 export const Pin = () => {
-  const router = useRouter();
-  const pathname = usePathname();
+  const updateLocation = useUpdateLocation();
   const location = useSearchParams();
-  const lat = location.get("lat") || null;
-  const lng = location.get("lng") || null;
+  const lat = Number(location.get("lat")) || null;
+  const lng = Number(location.get("lng")) || null;
 
   const pinHandler = () => {
-    const params = new URLSearchParams(location.toString());
-    params.set("pinlat", String(lat));
-    params.set("pinlng", String(lng));
-    router.push(`${pathname}?${params.toString()}`);
+    updateLocation({
+      pinlat: lat,
+      pinlng: lng,
+    });
   };
 
   return (
