@@ -13,5 +13,6 @@ export { default as IconLocation } from './src/location';
 export { default as IconMap } from './src/map';
 export { default as IconMoon } from './src/moon';
 export { default as IconPin } from './src/pin';
+export { default as IconPinlocation } from './src/pinlocation';
 export { default as IconSearch } from './src/search';
 export { default as IconSun } from './src/sun';
