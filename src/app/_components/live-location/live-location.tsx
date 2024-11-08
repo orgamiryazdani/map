@@ -1,32 +1,50 @@
 "use client";
 
-import { useLiveLocationStore } from "@/stores/livelocation.store";
+import useUpdateLocation from "@/hooks/useUpdateLocation";
 import { Button } from "../button";
 import { IconLocation } from "../icons/icons";
 import { useNotificationStore } from "@/stores/notification.store";
 
 export const LiveLocation: React.FC = () => {
-  const { error, isLoading, setUserLocation } = useLiveLocationStore(
-    (state) => state,
-  );
   const showNotification = useNotificationStore(
     (state) => state.showNotification,
   );
+  const updateLocation = useUpdateLocation();
+  console.log(updateLocation);
 
-  if (error) {
-    showNotification({
-      message: error,
-      type: "error",
-    });
-  }
+  const setUserLocation = () => {
+    if (!navigator.geolocation) {
+      showNotification({
+        message: "مرورگر شما از موقعیت جغرافیایی پشتیبانی نمی کند",
+        type: "error",
+      });
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const locationData = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+          livelat: position.coords.latitude,
+          livelng: position.coords.longitude,
+        };
+        updateLocation(locationData);
+      },
+      (error) => {
+        showNotification({
+          message: error.message,
+          type: "error",
+        });
+      },
+    );
+  };
 
   return (
     <Button
       onClick={setUserLocation}
       className='w-10 h-10'
       shape='square'
-      isLoading={isLoading}
-      loadingText=''
       variant='neutral'>
       <IconLocation />
     </Button>
