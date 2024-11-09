@@ -55,16 +55,22 @@ export const Map: React.FC = () => {
           />
         )}
         {/* go to pin location btn */}
-        {buttonPosition.current !== null && pinlat && pinlng && (
-          <OutOfViewButton
-            pinlat={pinlat}
-            pinlng={pinlng}
-            buttonPosition={buttonPosition}
-          />
-        )}
+        {buttonPosition.current !== null &&
+          pinlat !== lat &&
+          pinlng !== lng && (
+            <OutOfViewButton
+              pinlat={pinlat}
+              pinlng={pinlng}
+              buttonPosition={buttonPosition}
+            />
+          )}
       </MapContainer>
       <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50'>
-        <IconPinlocation fill="#ff0000" stroke="none" className="w-10 h-14 mt-4 "/>
+        <IconPinlocation
+          fill='#ff0000'
+          stroke='none'
+          className='w-10 h-14 mt-4 '
+        />
       </div>
     </section>
   );
