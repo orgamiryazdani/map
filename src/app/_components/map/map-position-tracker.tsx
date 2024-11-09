@@ -21,16 +21,10 @@ export const MapPositionTracker: React.FC<MapTrackerProps> = ({
       timeoutRef.current = setTimeout(() => {
         const center = map.getCenter();
 
-        if (
-          location[0] !== null &&
-          location[1] !== null &&
-          (location[0] !== center.lat || location[1] !== center.lng)
-        ) {
-          updateLocation({
-            lat: center.lat,
-            lng: center.lng,
-          });
-        }
+        updateLocation({
+          lat: center.lat,
+          lng: center.lng,
+        });
 
         const bounds = map.getBounds();
         if (
