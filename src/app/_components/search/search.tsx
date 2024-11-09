@@ -63,6 +63,12 @@ export const Search: React.FC = () => {
     }
   };
 
+  const enterSearchHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      getLocation();
+    }
+  };
+
   return (
     <div className='flex items-center justify-center w-2/5 gap-x-2 relative'>
       {/* search box */}
@@ -72,6 +78,7 @@ export const Search: React.FC = () => {
         placeholder='نام یک مکان یا شهر'
         variant='neutral'
         ref={inputRef}
+        onKeyDown={enterSearchHandler}
       />
       {/* location results box */}
       {locationResults.length > 0 && (
