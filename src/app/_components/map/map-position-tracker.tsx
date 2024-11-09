@@ -1,17 +1,43 @@
 import { useMapEvents } from "react-leaflet";
+import { useRef } from "react";
 import useUpdateLocation from "@/hooks/useUpdateLocation";
 import { MapTrackerProps } from "./map-types";
 
 export const MapPositionTracker: React.FC<MapTrackerProps> = ({
   location,
   buttonPosition,
-}: MapTrackerProps) => {
+}) => {
   const updateLocation = useUpdateLocation();
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   const map = useMapEvents({
+    movestart: () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+    },
     moveend: () => {
-      if (location[0] !== null && location[1] !== null) {
+      timeoutRef.current = setTimeout(() => {
+        const center = map.getCenter();
+
+        if (
+          location[0] !== null &&
+          location[1] !== null &&
+          (location[0] !== center.lat || location[1] !== center.lng)
+        ) {
+          updateLocation({
+            lat: center.lat,
+            lng: center.lng,
+          });
+        }
+
         const bounds = map.getBounds();
-        if (!bounds.contains(location as [number, number])) {
+        if (
+          location[0] !== null &&
+          location[1] !== null &&
+          !bounds.contains([location[0], location[1]])
+        ) {
           if (location[0] > bounds.getNorth()) {
             buttonPosition.current = "top";
           } else if (location[0] < bounds.getSouth()) {
@@ -24,13 +50,11 @@ export const MapPositionTracker: React.FC<MapTrackerProps> = ({
         } else {
           buttonPosition.current = null;
         }
-      }
-      const center: { lat: number; lng: number } = map.getCenter();
-      updateLocation({
-        lat: center.lat,
-        lng: center.lng,
-      });
+
+        timeoutRef.current = null;
+      }, 200);
     },
   });
+
   return null;
 };
