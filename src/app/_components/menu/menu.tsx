@@ -38,7 +38,7 @@ const Menu: React.FC = () => {
   const pathname = usePathname();
 
   return (
-    <div className='col-start-1 col-end-2 row-start-1 row-end-13 h-svh flex items-center justify-center'>
+    <nav className='col-start-1 col-end-2 row-start-1 row-end-13 h-svh flex items-center justify-center'>
       <div className='navigation relative w-[70px] h-[93svh] dark:bg-base-content flex justify-center items-center rounded-2xl'>
         <div className='w-[51px] h-[58px] rounded-2xl dark:bg-base-100 font-bold text-2xl absolute top-4 flex items-center justify-center'>
           <IconMap stroke='#fff' />
@@ -65,7 +65,7 @@ const Menu: React.FC = () => {
           <IconMoon stroke='#000' />
         </div>
       </div>
-    </div>
+    </nav>
   );
 };
 
