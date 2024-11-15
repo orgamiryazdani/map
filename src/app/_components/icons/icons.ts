@@ -5,6 +5,8 @@ export { default as IconArrowRight } from './src/arrow-right';
 export { default as IconBookmark } from './src/bookmark';
 export { default as IconCheck } from './src/check';
 export { default as IconClose } from './src/close';
+export { default as IconDelete } from './src/delete';
+export { default as IconEdit } from './src/edit';
 export { default as IconError } from './src/error';
 export { default as IconHome } from './src/home';
 export { default as IconInfo } from './src/info';
