@@ -103,3 +103,11 @@ interface Properties {
     continent_gid: string;
     label: string;
 }
+
+export interface FormLocationValue {
+    address: string;
+    placeName: string;
+    categoryName: string;
+    lng: number;
+    lat: number;
+}
