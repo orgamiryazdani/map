@@ -66,6 +66,15 @@
   top: calc(70px * 5);
 }
 
-.box :nth-child(2){
+.box :nth-child(2) {
   width: 93%;
+}
+
+.saveLocationCardBg {
+  background: rgb(238, 174, 225);
+  background: linear-gradient(
+    45deg,
+    rgba(238, 174, 225, 1) 0%,
+    rgba(148, 174, 233, 1) 56%
+  );
 }
