@@ -11,7 +11,7 @@ export const MapPositionTracker: React.FC<MapTrackerProps> = ({
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const map = useMapEvents({
-    movestart: () => {
+    move: () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
         timeoutRef.current = null;

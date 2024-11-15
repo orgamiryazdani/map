@@ -1,13 +1,13 @@
 "use client";
-
 import "leaflet/dist/leaflet.css";
 import { useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
-import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet";
+import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import { useLayerStore } from "@/stores/layers.store";
-import { liveIcon, OutOfViewButton, pinIcon } from "./map-icons";
+import { liveIcon, OutOfViewButton, pinIcon, saveLocation } from "./map-icons";
 import { MapPositionTracker } from "./map-position-tracker";
 import { IconPinlocation } from "../icons/icons";
+import { useLocationsStore } from "@/stores/locations.store";
 
 export const Map: React.FC = () => {
   const buttonPosition = useRef<string | null>(null);
@@ -23,6 +23,8 @@ export const Map: React.FC = () => {
   const activeLayer = useLayerStore((state) =>
     state.layers.find((layer) => layer.isActive),
   );
+
+  const locations = useLocationsStore((state) => state.locations);
 
   return (
     <section className='w-full h-full relative'>
@@ -54,6 +56,16 @@ export const Map: React.FC = () => {
             icon={pinIcon}
           />
         )}
+        {locations.length > 0 &&
+          locations.map((location) => (
+            <Marker
+              position={[location.lat, location.lng]}
+              icon={saveLocation}>
+              <Popup autoPan={false}>
+               {location.placeName}
+              </Popup>
+            </Marker>
+          ))}
         {/* go to pin location btn */}
         {buttonPosition.current !== null &&
           pinlat !== lat &&
