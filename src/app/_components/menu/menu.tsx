@@ -29,7 +29,7 @@ const menuItems = [
   },
   {
     id: 4,
-    path: "/location",
+    path: "/routes",
     icon: <IconArrowRight />,
   },
 ];
