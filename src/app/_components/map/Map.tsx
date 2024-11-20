@@ -1,13 +1,31 @@
 "use client";
 import "leaflet/dist/leaflet.css";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
+import {
+  MapContainer,
+  Marker,
+  Polyline,
+  Popup,
+  TileLayer,
+  useMap,
+} from "react-leaflet";
 import { useLayerStore } from "@/stores/layers.store";
-import { liveIcon, OutOfViewButton, pinIcon, saveLocation } from "./map-icons";
+import {
+  endRoute,
+  liveIcon,
+  OutOfViewButton,
+  pinIcon,
+  saveLocation,
+  startRoute,
+} from "./map-icons";
 import { MapPositionTracker } from "./map-position-tracker";
 import { IconPinlocation } from "../icons/icons";
 import { useLocationsStore } from "@/stores/locations.store";
+import { readData } from "@/core/http-service";
+import { API_KEY } from "@/config/global";
+import { RouteData } from "@/types/location.interface";
+import { useNotificationStore } from "@/stores/notification.store";
 
 export const Map: React.FC = () => {
   const buttonPosition = useRef<string | null>(null);
@@ -18,6 +36,15 @@ export const Map: React.FC = () => {
   const livelng = Number(location.get("livelng")) || null;
   const pinlat = Number(location.get("pinlat")) || null;
   const pinlng = Number(location.get("pinlng")) || null;
+  const startLat = Number(location.get("startLat")) || null;
+  const startLng = Number(location.get("startLng")) || null;
+  const endLat = Number(location.get("endLat")) || null;
+  const endLng = Number(location.get("endLng")) || null;
+  const [polylineValue, setPolylineValue] = useState<[number, number][]>([]);
+
+  const showNotification = useNotificationStore(
+    (state) => state.showNotification,
+  );
 
   //layer active
   const activeLayer = useLayerStore((state) =>
@@ -25,6 +52,28 @@ export const Map: React.FC = () => {
   );
 
   const locations = useLocationsStore((state) => state.locations);
+
+  useEffect(() => {
+    setPolylineValue([])
+    const getData = async () => {
+      try {
+        const { features }: { features: RouteData[] } = await readData(
+          `/v2/directions/driving-car?api_key=${API_KEY}&start=${startLng},${startLat}&end=${endLng},${endLat}`,
+        );
+        setPolylineValue(
+          features[0].geometry.coordinates.map(
+            ([lng, lat]: [number, number]) => [lat, lng],
+          ),
+        );
+      } catch {
+        showNotification({
+          type: "error",
+          message: "نقطه قابل مسیر یابی یافت نشد",
+        });
+      }
+    };
+    getData();
+  }, [startLat, endLat]);
 
   return (
     <section className='w-full h-full relative'>
@@ -37,6 +86,12 @@ export const Map: React.FC = () => {
           attribution={activeLayer?.attribution}
           url={activeLayer?.url || ""}
         />
+        {startLat !== null && (
+          <Polyline
+            positions={polylineValue}
+            color='blue'
+          />
+        )}
         <MapPositionTracker
           location={[pinlat, pinlng]}
           buttonPosition={buttonPosition}
@@ -56,14 +111,25 @@ export const Map: React.FC = () => {
             icon={pinIcon}
           />
         )}
+        {startLat && startLng && polylineValue.length > 0 && (
+          <Marker
+            position={[Number(startLat), Number(startLng)]}
+            icon={startRoute}
+          />
+        )}
+        {endLat && endLng && polylineValue.length > 0 && (
+          <Marker
+            position={[Number(endLat), Number(endLng)]}
+            icon={endRoute}
+          />
+        )}
         {locations.length > 0 &&
           locations.map((location) => (
             <Marker
+              key={location.address}
               position={[location.lat, location.lng]}
               icon={saveLocation}>
-              <Popup autoPan={false}>
-               {location.placeName}
-              </Popup>
+              <Popup autoPan={false}>{location.placeName}</Popup>
             </Marker>
           ))}
         {/* go to pin location btn */}
