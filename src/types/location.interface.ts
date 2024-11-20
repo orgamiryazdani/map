@@ -5,6 +5,20 @@ export interface GeocodingResponse {
     bbox: [number, number, number, number];
 }
 
+export interface RouteData {
+    geometry: {
+        coordinates: [number, number][];
+        type: string;
+    };
+    type: string;
+    properties: {
+        segments: object[];
+        summary: object;
+        way_points: []
+    };
+    bbox: [number, number, number, number];
+}
+
 interface Geocoding {
     version: string;
     attribution: string;
