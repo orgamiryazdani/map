@@ -8,6 +8,10 @@ type LocationData = {
     livelng?: number;
     pinlat?: number | null;
     pinlng?: number | null;
+    startLat?: number | null;
+    startLng?: number | null;
+    endLat?: number | null;
+    endLng?: number | null;
 };
 
 const useUpdateLocation = () => {
