@@ -36,7 +36,6 @@ export const useLocationsStore = create<LocationsStore>()(
 
         localStorage.setItem("locations", JSON.stringify(updatedLocations));
         set({ locations: updatedLocations });
-        console.log("مکان با موفقیت حذف شد");
       },
 
       editLocation: (lat, lng, updatedLocation) => {
@@ -50,7 +49,6 @@ export const useLocationsStore = create<LocationsStore>()(
 
         localStorage.setItem("locations", JSON.stringify(updatedLocations));
         set({ locations: updatedLocations });
-        console.log("مکان با موفقیت ویرایش شد");
       },
     };
   }),
