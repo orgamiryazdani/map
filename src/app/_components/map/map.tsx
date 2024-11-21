@@ -26,6 +26,7 @@ import { readData } from "@/core/http-service";
 import { API_KEY } from "@/config/global";
 import { RouteData } from "@/types/location.interface";
 import { useNotificationStore } from "@/stores/notification.store";
+import truncateText from "@/utils/truncateText";
 
 export const Map: React.FC = () => {
   const buttonPosition = useRef<string | null>(null);
@@ -54,7 +55,7 @@ export const Map: React.FC = () => {
   const locations = useLocationsStore((state) => state.locations);
 
   useEffect(() => {
-    setPolylineValue([])
+    setPolylineValue([]);
     const getData = async () => {
       try {
         const { features }: { features: RouteData[] } = await readData(
@@ -66,10 +67,12 @@ export const Map: React.FC = () => {
           ),
         );
       } catch {
-        showNotification({
-          type: "error",
-          message: "نقطه قابل مسیر یابی یافت نشد",
-        });
+        if (startLat !== null && endLat !== null) {
+          showNotification({
+            type: "error",
+            message: "نقطه قابل مسیر یابی یافت نشد",
+          });
+        }
       }
     };
     getData();
@@ -129,7 +132,9 @@ export const Map: React.FC = () => {
               key={location.address}
               position={[location.lat, location.lng]}
               icon={saveLocation}>
-              <Popup autoPan={false}>{location.placeName}</Popup>
+              <Popup autoPan={false}>
+                {truncateText(location.placeName, 42)}
+              </Popup>
             </Marker>
           ))}
         {/* go to pin location btn */}
