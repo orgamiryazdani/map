@@ -82,7 +82,7 @@ export const Search: React.FC = () => {
       />
       {/* location results box */}
       {locationResults.length > 0 && (
-        <div className='absolute w-full h-auto box flex flex-col gap-y-0 min-h-12 bg-base-25 top-12 z-50 rounded-xl p-3 text-sm '>
+        <div className='absolute w-full h-auto max-h-96 overflow-y-auto box flex flex-col gap-y-0 min-h-12 bg-base-25 top-12 z-50 rounded-xl p-3 text-sm '>
           <IconClose
             className='left-3 top-4 cursor-pointer absolute'
             onClick={() => setLocationResults([])}
