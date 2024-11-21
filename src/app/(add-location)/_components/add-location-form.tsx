@@ -9,6 +9,7 @@ import { Feature, FormLocationValue } from "@/types/location.interface";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useLocationsStore } from "@/stores/locations.store";
+import truncateText from "@/utils/truncateText";
 
 const categoryItem: { id: number; title: string }[] = [
   { id: 1, title: "منطقه مسکونی" },
@@ -124,7 +125,9 @@ export const AddLocationForm: React.FC = () => {
           </span>
         </label>
         <div className='flex flex-col gap-y-4 text-sm w-full h-32 p-3 rounded-xl bg-neutral'>
-          <p className='text-xl font-bold'>آدرس : {formValue.address}</p>
+          <p className='text-xl font-bold'>
+            آدرس : {truncateText(formValue.address, 45)}{" "}
+          </p>
           <span>طول : {lng}</span>
           <span>عرض : {lat}</span>
         </div>
