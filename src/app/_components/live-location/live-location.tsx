@@ -43,7 +43,7 @@ export const LiveLocation: React.FC = () => {
   return (
     <Button
       onClick={setUserLocation}
-      className='w-10 h-10'
+      className='w-10 h-10 bg-base-25 text-base-content'
       shape='square'
       variant='neutral'>
       <IconLocation />

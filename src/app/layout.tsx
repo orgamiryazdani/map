@@ -1,3 +1,4 @@
+"use client";
 import "./globals.css";
 import localFont from "next/font/local";
 import { Figtree } from "next/font/google";
@@ -51,9 +52,9 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      className={`dark ${figtree.variable} ${vazir.variable}`}
+      className={`${figtree.variable} ${vazir.variable}`}
       dir='rtl'>
-      <body className='dark:bg-base-100 dark:text-base-content grid grid-rows-7 grid-cols-12 '>
+      <body className='dark:bg-base-100 bg-primary-content dark:text-base-content grid grid-rows-7 grid-cols-12 '>
         <NextTopLoader
           showSpinner={false}
           color='var(--color-primary)'

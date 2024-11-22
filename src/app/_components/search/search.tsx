@@ -72,9 +72,9 @@ export const Search: React.FC = () => {
   return (
     <div className='flex items-center justify-center w-2/5 gap-x-2 relative'>
       {/* search box */}
-      <IconSearch className='absolute right-0 mr-2' />
+      <IconSearch className='absolute right-0 mr-2 text-base-content' />
       <Textbox
-        className='h-10 dark:border-neutral bg-neutral pr-9 !outline-none'
+        className='h-10 dark:border-neutral bg-base-25 text-base-content pr-9 !outline-none'
         placeholder='نام یک مکان یا شهر'
         variant='neutral'
         ref={inputRef}
@@ -84,12 +84,12 @@ export const Search: React.FC = () => {
       {locationResults.length > 0 && (
         <div className='absolute w-full h-auto max-h-96 overflow-y-auto box flex flex-col gap-y-0 min-h-12 bg-base-25 top-12 z-50 rounded-xl p-3 text-sm '>
           <IconClose
-            className='left-3 top-4 cursor-pointer absolute'
+            className='left-3 top-4 cursor-pointer absolute text-base-content'
             onClick={() => setLocationResults([])}
           />
           {locationResults.map((location) => (
             <div
-              className='hover:bg-base-content hover:text-base-300 rounded-lg p-2 cursor-pointer'
+              className='hover:bg-base-content hover:text-base-300 text-base-content rounded-lg p-2 cursor-pointer'
               key={location.properties.label}
               onClick={() => setQueryLocation(location.geometry.coordinates)}>
               {location.properties.label}
@@ -102,7 +102,7 @@ export const Search: React.FC = () => {
         isLoading={isPending}
         loadingText='جستجو'
         onClick={getLocation}
-        className='h-10 text-sm dark:bg-base-content dark:text-base-300'
+        className='h-10 text-sm dark:bg-base-content bg-base-content dark:text-base-300'
         variant='ghost'>
         جستجو
       </Button>

@@ -124,7 +124,7 @@ export const AddLocationForm: React.FC = () => {
             ( مکان مورد نظر خود را از روی نقشه انتخاب کنید )
           </span>
         </label>
-        <div className='flex flex-col gap-y-4 text-sm w-full h-32 p-3 rounded-xl bg-neutral'>
+        <div className='flex flex-col gap-y-4 text-sm w-full h-32 p-3 rounded-xl dark:bg-neutral bg-base-content '>
           <p className='text-xl font-bold'>
             آدرس : {truncateText(formValue.address, 45)}{" "}
           </p>
@@ -135,6 +135,7 @@ export const AddLocationForm: React.FC = () => {
       <Button
         variant='neutral'
         onClick={saveLocationHandler}
+        className="text-base-300 bg-base-content"
         shape='full'>
         اضافه کردن
       </Button>

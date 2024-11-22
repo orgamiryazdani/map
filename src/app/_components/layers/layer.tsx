@@ -19,7 +19,7 @@ export const Layer: React.FC = () => {
     <div className='relative flex flex-col items-center justify-center'>
       <Button
         onClick={() => setShowMapBox(!showMapBox)}
-        className='w-10 h-10'
+        className='w-10 h-10 bg-base-25 text-base-content'
         shape='square'
         variant='neutral'>
         <IconLayer />
@@ -39,7 +39,7 @@ export const Layer: React.FC = () => {
                   map.isActive && "border-2 border-primary"
                 }`}
               />
-              <h1>{map.title}</h1>
+              <h1 className="text-base-content">{map.title}</h1>
             </div>
           ))}
         </div>

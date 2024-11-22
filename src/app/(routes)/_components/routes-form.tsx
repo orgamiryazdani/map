@@ -73,7 +73,7 @@ const RoutesForm: React.FC = () => {
         <div className='flex items-center justify-center gap-x-2'>
           <Button
             onClick={() => routeLocationHandler(2)}
-            className='w-48'
+            className='w-48 bg-info text-primary-content'
             variant='info'>
             {startLat === 0 ? "تایید مبدا" : "انتخاب مبدا جدید"}
           </Button>
@@ -88,7 +88,7 @@ const RoutesForm: React.FC = () => {
         <div className='flex items-center justify-center gap-x-2'>
           <Button
             onClick={() => routeLocationHandler(3)}
-            className='w-48'
+            className='w-48 bg-primary text-primary-content'
             variant='primary'>
             {endLat === 0 ? "تایید مقصد" : "انتخاب مقصد جدید"}
           </Button>
@@ -111,7 +111,7 @@ const RoutesForm: React.FC = () => {
                 <p className='font-bold'>
                   {truncateText(location.address, 33)}
                 </p>
-                <div className='flex items-center gap-x-2 [&>*]:bg-base-25 [&>*]:dark:text-white [&>*]:rounded-md [&>*]:px-2 [&>*]:pt-1 [&>*]:text-sm'>
+                <div className='flex items-center gap-x-2 [&>*]:bg-base-25 [&>*]:text-white [&>*]:rounded-md [&>*]:px-2 [&>*]:pt-1 [&>*]:text-sm'>
                   <span>{location.lat}</span>
                   <span>{location.lng}</span>
                 </div>
@@ -126,6 +126,7 @@ const RoutesForm: React.FC = () => {
       </div>
       <Button
         onClick={setRouteHandler}
+        className="bg-base-content"
         shape='full'
         variant='neutral'>
         شروع سفر

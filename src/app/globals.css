@@ -29,12 +29,12 @@
 }
 
 .indicator::before {
-  @apply content-[""] absolute left-[-22px] w-[17px] h-6 dark:shadow-[1px_-10px_0_#1d232a] rounded-tr-[20px] top-[51.5%];
+  @apply content-[""] absolute left-[-22px] w-[17px] h-6 dark:shadow-[1px_-10px_0_#1d232a] shadow-[1px_-10px_0_#fff] rounded-tr-[20px] top-[51.5%];
   background: transparent;
 }
 
 .indicator::after {
-  @apply content-[""] absolute right-[-22px] w-[17px] h-6 dark:shadow-[-1px_-10px_0_#1d232a] rounded-tl-[20px] top-[51.5%];
+  @apply content-[""] absolute right-[-22px] w-[17px] h-6 dark:shadow-[-1px_-10px_0_#1d232a] shadow-[-1px_-10px_0_#fff] rounded-tl-[20px] top-[51.5%];
   background: transparent;
 }
 
@@ -43,7 +43,7 @@
 }
 
 .navigation ul li a svg {
-  @apply stroke-white dark:stroke-base-300 duration-300;
+  @apply stroke-white stroke-base-300 duration-300;
 }
 
 .navigation ul li:nth-child(1).active ~ .indicator {

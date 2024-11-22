@@ -19,7 +19,7 @@ export const Pin = () => {
   return (
     <Button
       onClick={pinHandler}
-      className='w-10 h-10'
+      className='w-10 h-10 bg-base-25 text-base-content'
       shape='square'
       variant='neutral'>
       <IconPin />
