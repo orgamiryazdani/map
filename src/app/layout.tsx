@@ -54,6 +54,14 @@ export default function RootLayout({
     <html
       className={`${figtree.variable} ${vazir.variable}`}
       dir='rtl'>
+      <head>
+        <link
+          rel='icon'
+          href='./icon.png'
+          type='image/png'
+          sizes='32x32'
+        />
+      </head>
       <body className='dark:bg-base-100 bg-primary-content flex items-start justify-center w-svw h-svh'>
         <div className='dark:bg-base-100 bg-primary-content dark:text-base-content grid grid-rows-[auto,auto,1fr] grid-cols-12 w-full h-full max-w-[1500px]'>
           <NextTopLoader

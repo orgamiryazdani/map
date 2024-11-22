@@ -1,4 +1,9 @@
+import { Metadata } from "next";
 import { Map } from "./_components/map";
+
+export const metadata: Metadata = {
+  title: "نقشه",
+};
 
 export default function Home() {
   return (

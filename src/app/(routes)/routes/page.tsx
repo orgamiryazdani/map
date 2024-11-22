@@ -1,5 +1,10 @@
 import { Map } from "@/app/_components/map";
 import RoutesForm from "../_components/routes-form";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "شروع سفر",
+};
 
 const Routes = () => {
   return (

@@ -1,5 +1,10 @@
 import { Map } from "@/app/_components/map";
 import { AddLocationForm } from "../_components/add-location-form";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "اضافه کردن مکان",
+};
 
 const AddLocation = () => {
   return (
