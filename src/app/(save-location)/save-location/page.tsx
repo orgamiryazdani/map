@@ -11,7 +11,7 @@ const SaveLocation = () => {
   );
 
   return (
-    <div className='col-start-2 col-end-13 row-start-2 row-end-8 pl-6 pb-6 z-10 flex flex-wrap gap-x-7'>
+    <div className='lg:col-start-2 col-start-1 col-end-13 row-start-3 row-end-8 lg:pl-6 pb-6 z-10 flex items-center lg:items-start lg:justify-start justify-center gap-y-5 flex-wrap gap-x-7'>
       {locations.length > 0 ? (
         locations.map((location) => (
           <LocationCard
@@ -20,7 +20,7 @@ const SaveLocation = () => {
           />
         ))
       ) : (
-        <div className="w-full h-32 flex flex-col items-center justify-center gap-y-4">
+        <div className="w-full h-32 flex flex-col items-center justify-center gap-y-4 px-4 lg:px-0">
           <div className='w-full h-12 p-3 rounded-md bg-base-25'>
             هیج مکان ذخیره شده ای وجود ندارد
           </div>

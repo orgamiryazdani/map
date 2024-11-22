@@ -63,7 +63,7 @@ const RoutesForm: React.FC = () => {
   };
 
   return (
-    <div className='w-1/2 h-full flex flex-col justify-between'>
+    <div className='lg:w-1/2 w-full lg:h-full min-h-[500px] flex flex-col justify-between'>
       <div className='flex flex-col items-end gap-y-2'>
         <div className='w-full text-sm border border-neutral h-12 rounded-lg flex items-center justify-start px-3'>
           {routeLocation.startLat > 0
@@ -97,7 +97,7 @@ const RoutesForm: React.FC = () => {
       <div className='flex flex-col gap-y-3'>
         <label className='w-full'>مکان های ذخیره شده</label>
         {locations.length > 0 ? (
-          <div className='flex flex-wrap justify-between gap-y-4 max-h-44 h-auto overflow-y-auto w-full pl-2'>
+          <div className='flex flex-wrap lg:justify-between justify-center gap-y-4 gap-x-4 lg:gap-x-0 max-h-44 h-auto overflow-y-auto w-full pl-2'>
             {locations.map((location) => (
               <div
                 key={location.address}
@@ -126,7 +126,7 @@ const RoutesForm: React.FC = () => {
       </div>
       <Button
         onClick={setRouteHandler}
-        className="bg-base-content"
+        className='bg-base-content'
         shape='full'
         variant='neutral'>
         شروع سفر

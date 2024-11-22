@@ -70,9 +70,9 @@ export const Search: React.FC = () => {
   };
 
   return (
-    <div className='flex items-center justify-center w-2/5 gap-x-2 relative'>
+    <div className='flex items-center justify-center lg:w-2/5 w-full gap-x-2 relative'>
       {/* search box */}
-      <IconSearch className='absolute right-0 mr-2 text-base-content' />
+      <IconSearch className='absolute right-0 lg:mr-2 text-base-content mr-2' />
       <Textbox
         className='h-10 dark:border-neutral bg-base-25 text-base-content pr-9 !outline-none'
         placeholder='نام یک مکان یا شهر'

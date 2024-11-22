@@ -54,15 +54,17 @@ export default function RootLayout({
     <html
       className={`${figtree.variable} ${vazir.variable}`}
       dir='rtl'>
-      <body className='dark:bg-base-100 bg-primary-content dark:text-base-content grid grid-rows-7 grid-cols-12 '>
-        <NextTopLoader
-          showSpinner={false}
-          color='var(--color-primary)'
-        />
-        <Notifications />
-        <Header />
-        <Menu />
-        {children}
+      <body className='dark:bg-base-100 bg-primary-content flex items-start justify-center w-svw h-svh'>
+        <div className='dark:bg-base-100 bg-primary-content dark:text-base-content grid grid-rows-[auto,auto,1fr] grid-cols-12 w-full h-full max-w-[1500px]'>
+          <NextTopLoader
+            showSpinner={false}
+            color='var(--color-primary)'
+          />
+          <Notifications />
+          <Header />
+          <Menu />
+          {children}
+        </div>
       </body>
     </html>
   );

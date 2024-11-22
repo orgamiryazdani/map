@@ -88,7 +88,7 @@ export const AddLocationForm: React.FC = () => {
   };
 
   return (
-    <div className='w-1/2 h-full flex flex-col justify-between'>
+    <div className='lg:w-1/2 w-full lg:h-full min-h-[500px] flex flex-col justify-between'>
       <div className='gap-y-1 flex flex-col'>
         <label>نام مکان</label>
         <Textbox
@@ -99,7 +99,7 @@ export const AddLocationForm: React.FC = () => {
         />
       </div>
       <div className='gap-y-1 flex flex-col'>
-        <label htmlFor=''>دسته بندی</label>
+        <label>دسته بندی</label>
         <select
           className='h-12 border border-neutral bg-transparent rounded-lg px-2'
           onChange={(e) =>
@@ -117,15 +117,14 @@ export const AddLocationForm: React.FC = () => {
       </div>
       <div className='gap-y-1 flex flex-col'>
         <label
-          className='flex items-center gap-x-1'
-          htmlFor=''>
+          className='flex items-center gap-x-1'>
           مختصات
-          <span className='text-[11px]'>
+          <span className='lg:text-[11px] text-[9px]'>
             ( مکان مورد نظر خود را از روی نقشه انتخاب کنید )
           </span>
         </label>
         <div className='flex flex-col gap-y-4 text-sm w-full h-32 p-3 rounded-xl dark:bg-neutral bg-base-content '>
-          <p className='text-xl font-bold'>
+          <p className='lg:text-xl text-sm font-bold'>
             آدرس : {truncateText(formValue.address, 45)}{" "}
           </p>
           <span>طول : {lng}</span>

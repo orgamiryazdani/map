@@ -14,7 +14,7 @@ const LocationCard: React.FC<{ location: FormLocationValue }> = ({
   const { address, categoryName, lat, lng, placeName } = location;
 
   return (
-    <div className='w-[31.7%] h-auto max-h-44 rounded-2xl text-base-50 saveLocationCardBg p-3 flex flex-col justify-between'>
+    <div className='lg:w-[31.7%] w-72 h-auto max-h-44 rounded-2xl text-base-50 saveLocationCardBg p-3 flex flex-col justify-between'>
       <Link
         href={`/?lat=${lat}&lng=${lng}`}
         className='h-[113px] flex flex-col justify-between'>

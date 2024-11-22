@@ -26,7 +26,7 @@ export const Layer: React.FC = () => {
       </Button>
 
       {showMapBox && (
-        <div className='w-56 h-44 p-1 gap-x-2 rounded-xl flex flex-wrap items-center justify-center bg-base-25 absolute top-14 z-50'>
+        <div className='w-56 h-44 p-1 gap-x-2 rounded-xl flex flex-wrap items-center justify-center bg-base-25 absolute right-0 lg:-right-24 top-14 z-50'>
           {layers.map((map) => (
             <div
               onClick={() => changeLayerHandler(map.id)}
