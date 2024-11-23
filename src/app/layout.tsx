@@ -5,9 +5,7 @@ import { Figtree } from "next/font/google";
 import Header from "./_components/header/header";
 import { Notifications } from "./_components/notification";
 import NextTopLoader from "nextjs-toploader";
-import { Suspense } from "react";
 import { Menu } from "./_components/menu";
-import { Loading } from "./_components/loading";
 
 const figtree = Figtree({
   display: "swap",
@@ -73,15 +71,7 @@ export default function RootLayout({
           <Notifications />
           <Header />
           <Menu />
-          <Suspense
-            fallback={
-              <Loading
-                variant='accent'
-                type='spinner'
-              />
-            }>
-            {children}
-          </Suspense>
+          {children}
         </div>
       </body>
     </html>

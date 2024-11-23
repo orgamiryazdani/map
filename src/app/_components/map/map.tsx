@@ -76,7 +76,7 @@ export const Map: React.FC = () => {
       }
     };
     getData();
-  }, [startLat, endLat]);
+  }, [startLat, endLat, startLng, endLng]);
 
   return (
     <section className='w-full h-full relative'>
