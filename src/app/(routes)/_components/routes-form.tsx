@@ -119,7 +119,7 @@ const RoutesForm: React.FC = () => {
             ))}
           </div>
         ) : (
-          <div className='w-full p-3 rounded-md bg-base-25'>
+          <div className='w-full p-3 rounded-md bg-base-25 text-secondary-content'>
             هیج مکان ذخیره شده ای وجود ندارد
           </div>
         )}

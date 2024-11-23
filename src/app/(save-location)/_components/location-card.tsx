@@ -45,7 +45,7 @@ const LocationCard: React.FC = () => {
         ))
       ) : (
         <div className='w-full h-32 flex flex-col items-center justify-center gap-y-4 px-4 lg:px-0'>
-          <div className='w-full h-12 p-3 rounded-md bg-base-25'>
+          <div className='w-full h-12 p-3 rounded-md bg-base-25 text-secondary-content'>
             هیج مکان ذخیره شده ای وجود ندارد
           </div>
           <Link
@@ -53,6 +53,7 @@ const LocationCard: React.FC = () => {
             className='w-full'>
             <Button
               shape='full'
+              className="bg-secondary"
               variant='secondary'>
               افزودن یک مکان
             </Button>
