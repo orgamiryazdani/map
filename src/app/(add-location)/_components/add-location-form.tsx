@@ -43,19 +43,34 @@ export const AddLocationForm: React.FC = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const { features }: { features: [Omit<Feature, "bbox">] } =
-        await readData(
-          `/geocode/reverse?api_key=${API_KEY}&point.lat=${lat}&point.lon=${lng}&size=1`,
-        );
-      setFormValue((prev) => ({
-        ...prev,
-        address: features[0].properties.label,
-        lng: features[0].geometry.coordinates[0],
-        lat: features[0].geometry.coordinates[1],
-      }));
+      try {
+        const { features }: { features: [Omit<Feature, "bbox">] } =
+          await readData(
+            `/geocode/reverse?api_key=${API_KEY}&point.lat=${lat}&point.lon=${lng}&size=1`,
+          );
+        if (features.length > 0) {
+          setFormValue((prev) => ({
+            ...prev,
+            address: features[0].properties.label,
+            lng: features[0].geometry.coordinates[0],
+            lat: features[0].geometry.coordinates[1],
+          }));
+        } else {
+          showNotification({
+            message: "آدرسی یافت نشد",
+            type: "error",
+          });
+        }
+      } catch {
+        showNotification({
+          message: "خطا در بارگذاری اطلاعات",
+          type: "error",
+        });
+      }
     };
     getData();
   }, [lat, lng]);
+  
 
   const saveLocationHandler = () => {
     if (formValue.placeName === "") {

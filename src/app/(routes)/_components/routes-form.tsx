@@ -1,9 +1,6 @@
 "use client";
 import { Button } from "@/app/_components/button";
 import useUpdateLocation from "@/hooks/useUpdateLocation";
-import { useLocationsStore } from "@/stores/locations.store";
-import { FormLocationValue } from "@/types/location.interface";
-import truncateText from "@/utils/truncateText";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
@@ -40,18 +37,9 @@ const RoutesForm: React.FC = () => {
     }
   };
 
-  const locations: FormLocationValue[] = useLocationsStore(
-    (state) => state.locations,
-  );
+  
 
   const setLocation = useUpdateLocation();
-
-  const setLocationToSaveLocation = (saveLat: number, saveLng: number) => {
-    setLocation({
-      lat: saveLat,
-      lng: saveLng,
-    });
-  };
 
   const setRouteHandler = () => {
     setLocation({
@@ -96,7 +84,7 @@ const RoutesForm: React.FC = () => {
       </div>
       <div className='flex flex-col gap-y-3'>
         <label className='w-full'>مکان های ذخیره شده</label>
-        {locations.length > 0 ? (
+        {/* {locations.length > 0 ? (
           <div className='flex flex-wrap lg:justify-between justify-center gap-y-4 gap-x-4 lg:gap-x-0 max-h-44 h-auto overflow-y-auto w-full pl-2'>
             {locations.map((location) => (
               <div
@@ -122,7 +110,7 @@ const RoutesForm: React.FC = () => {
           <div className='w-full p-3 rounded-md bg-base-25'>
             هیج مکان ذخیره شده ای وجود ندارد
           </div>
-        )}
+        )} */}
       </div>
       <Button
         onClick={setRouteHandler}

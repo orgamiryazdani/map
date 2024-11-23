@@ -28,7 +28,7 @@ import { RouteData } from "@/types/location.interface";
 import { useNotificationStore } from "@/stores/notification.store";
 import truncateText from "@/utils/truncateText";
 
-export const Map: React.FC = () => {
+const Map: React.FC = () => {
   const buttonPosition = useRef<string | null>(null);
   const location = useSearchParams();
   const lat = Number(location.get("lat")) || 29.61563539020847;
@@ -95,10 +95,10 @@ export const Map: React.FC = () => {
             color='blue'
           />
         )}
-        <MapPositionTracker
-          location={[pinlat, pinlng]}
-          buttonPosition={buttonPosition}
-        />
+          <MapPositionTracker
+            location={[pinlat, pinlng]}
+            buttonPosition={buttonPosition}
+          />
         <MapViewUpdater center={[lat, lng]} />
         {/* live marker */}
         {livelat !== null && livelng !== null && (
@@ -168,3 +168,5 @@ const MapViewUpdater: React.FC<{ center: [number, number] }> = ({ center }) => {
 
   return null;
 };
+
+export default Map
