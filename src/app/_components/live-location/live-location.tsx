@@ -10,7 +10,6 @@ export const LiveLocation: React.FC = () => {
     (state) => state.showNotification,
   );
   const updateLocation = useUpdateLocation();
-  console.log(updateLocation);
 
   const setUserLocation = () => {
     if (!navigator.geolocation) {

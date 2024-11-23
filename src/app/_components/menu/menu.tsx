@@ -38,32 +38,32 @@ const menuItems = [
   },
 ];
 
-const Menu: React.FC = () => {
+export const Menu: React.FC = () => {
   const pathname = usePathname();
   const [activeTheme, setActiveTheme] = useState<string>("system");
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "system" || !savedTheme) {
-      applySystemTheme();
-      setActiveTheme("system");
-    } else {
-      applyTheme(savedTheme);
-      setActiveTheme(savedTheme);
-    }
-
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    const handleSystemThemeChange = () => {
-      if (!savedTheme || savedTheme === "system") {
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "system" || !savedTheme) {
         applySystemTheme();
+        setActiveTheme("system");
+      } else {
+        applyTheme(savedTheme);
+        setActiveTheme(savedTheme);
       }
-    };
 
-    mediaQuery.addEventListener("change", handleSystemThemeChange);
+      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+      const handleSystemThemeChange = () => {
+        if (!savedTheme || savedTheme === "system") {
+          applySystemTheme();
+        }
+      };
 
-    return () => {
-      mediaQuery.removeEventListener("change", handleSystemThemeChange);
-    };
+      mediaQuery.addEventListener("change", handleSystemThemeChange);
+
+      return () => {
+        mediaQuery.removeEventListener("change", handleSystemThemeChange);
+      };
   }, []);
 
   const applyTheme = (theme: string) => {
@@ -154,5 +154,3 @@ const Menu: React.FC = () => {
     </>
   );
 };
-
-export default Menu;

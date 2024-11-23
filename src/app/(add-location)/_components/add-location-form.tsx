@@ -88,7 +88,7 @@ export const AddLocationForm: React.FC = () => {
   };
 
   return (
-    <div className='lg:w-1/2 w-full lg:h-full min-h-[500px] flex flex-col justify-between'>
+    <div className='lg:w-1/2 w-full lg:h-full min-h-[500px] flex flex-col justify-between lg:pr-1'>
       <div className='gap-y-1 flex flex-col'>
         <label>نام مکان</label>
         <Textbox

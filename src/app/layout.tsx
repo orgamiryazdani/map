@@ -2,10 +2,12 @@
 import "./globals.css";
 import localFont from "next/font/local";
 import { Figtree } from "next/font/google";
-import Menu from "./_components/menu/menu";
 import Header from "./_components/header/header";
 import { Notifications } from "./_components/notification";
 import NextTopLoader from "nextjs-toploader";
+import { Suspense } from "react";
+import { Menu } from "./_components/menu";
+import { Loading } from "./_components/loading";
 
 const figtree = Figtree({
   display: "swap",
@@ -63,7 +65,7 @@ export default function RootLayout({
         />
       </head>
       <body className='dark:bg-base-100 bg-primary-content flex items-start justify-center w-svw h-svh'>
-        <div className='dark:bg-base-100 bg-primary-content dark:text-base-content grid grid-rows-[auto,auto,1fr] grid-cols-12 w-full h-full max-w-[1500px]'>
+        <div className='dark:bg-base-100 bg-primary-content dark:text-base-content transition-all duration-300 grid grid-rows-[auto,auto,1fr] grid-cols-12 w-full h-full max-w-[1500px]'>
           <NextTopLoader
             showSpinner={false}
             color='var(--color-primary)'
@@ -71,7 +73,15 @@ export default function RootLayout({
           <Notifications />
           <Header />
           <Menu />
-          {children}
+          <Suspense
+            fallback={
+              <Loading
+                variant='accent'
+                type='spinner'
+              />
+            }>
+            {children}
+          </Suspense>
         </div>
       </body>
     </html>

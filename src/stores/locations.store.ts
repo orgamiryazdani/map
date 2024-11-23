@@ -1,6 +1,6 @@
-import { FormLocationValue } from "@/types/location.interface";
 import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { devtools, persist } from "zustand/middleware";
+import { FormLocationValue } from "@/types/location.interface";
 
 type LocationsStore = {
   locations: FormLocationValue[];
@@ -10,46 +10,31 @@ type LocationsStore = {
 };
 
 export const useLocationsStore = create<LocationsStore>()(
-  devtools((set) => {
-    const allLocations = JSON.parse(localStorage.getItem("locations") ?? "[]");
-
-    return {
-      locations: allLocations,
-
-      saveLocation: (formValue) => {
-        const oldItems: FormLocationValue[] = JSON.parse(
-          localStorage.getItem("locations") ?? "[]",
-        );
-        const updatedLocations = [...oldItems, formValue];
-        localStorage.setItem("locations", JSON.stringify(updatedLocations));
-        set({ locations: updatedLocations });
-      },
-
-      deleteLocation: (lat, lng) => {
-        const oldItems: FormLocationValue[] = JSON.parse(
-          localStorage.getItem("locations") ?? "[]",
-        );
-
-        const updatedLocations = oldItems.filter(
-          (item) => item.lat !== lat || item.lng !== lng,
-        );
-
-        localStorage.setItem("locations", JSON.stringify(updatedLocations));
-        set({ locations: updatedLocations });
-      },
-
-      editLocation: (lat, lng, updatedLocation) => {
-        const oldItems: FormLocationValue[] = JSON.parse(
-          localStorage.getItem("locations") ?? "[]",
-        );
-
-        const updatedLocations = oldItems.map((item) =>
-          item.lat === lat && item.lng === lng ? updatedLocation : item,
-        );
-
-        localStorage.setItem("locations", JSON.stringify(updatedLocations));
-        set({ locations: updatedLocations });
-      },
-    };
-  }),
+  devtools(
+    persist(
+      (set) => ({
+        locations: [],
+        saveLocation: (formValue) => {
+          set((state) => ({
+            locations: [...state.locations, formValue],
+          }));
+        },
+        deleteLocation: (lat, lng) => {
+          set((state) => ({
+            locations: state.locations.filter(
+              (item) => item.lat !== lat || item.lng !== lng
+            ),
+          }));
+        },
+        editLocation: (lat, lng, updatedLocation) => {
+          set((state) => ({
+            locations: state.locations.map((item) =>
+              item.lat === lat && item.lng === lng ? updatedLocation : item
+            ),
+          }));
+        },
+      }),
+      { name: "locations-storage" }
+    )
+  )
 );
